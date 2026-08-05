@@ -64,17 +64,21 @@ jobs:
           test -f node_modules/@nestjs/core/package.json
           test -f node_modules/prisma/package.json
 
-          # Oryx가 불완전한 tar를 만들지 않도록, CI에서 완전한 tar를 직접 만들고 node_modules 폴더는 제거
-          tar -czf node_modules.tar.gz -C node_modules .
+          # Oryx가 node_modules.tar.gz 이름을 가로채 불완전한 tar로 덮어씀
+          # → 다른 파일명으로 우리가 만든 완전한 tar만 사용
+          tar -czf app-node_modules.tar.gz -C node_modules .
           rm -rf node_modules
 
+          # tar 안에 nest가 있는지 재확인 (없으면 배포 중단)
+          tar -tzf app-node_modules.tar.gz | grep -q '@nestjs/core/package.json'
+
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
-          rm -f pnpm-lock.yaml
+          rm -f pnpm-lock.yaml node_modules.tar.gz
 
           echo "Artifact contents:"
           ls -la
-          echo "Tar sample (nestjs):"
-          tar -tzf node_modules.tar.gz | grep -m5 '@nestjs/core' || true
+          echo "Nest packages in tar:"
+          tar -tzf app-node_modules.tar.gz | grep '@nestjs/' | head -20
 
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .

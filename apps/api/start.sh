@@ -7,22 +7,26 @@ if [ -L node_modules ]; then
   rm -f node_modules
 fi
 
-if [ ! -f node_modules.tar.gz ]; then
-  echo "ERROR: node_modules.tar.gz not found"
+# Oryx가 만드는 node_modules.tar.gz 는 쓰지 않음 (불완전함)
+# CI에서 만든 app-node_modules.tar.gz 만 사용
+TAR_FILE="app-node_modules.tar.gz"
+
+if [ ! -f "$TAR_FILE" ]; then
+  echo "ERROR: $TAR_FILE not found"
   ls -la
   exit 1
 fi
 
-echo "Extracting node_modules.tar.gz -> ./node_modules ..."
+echo "Extracting $TAR_FILE -> ./node_modules ..."
 rm -rf node_modules
 mkdir -p node_modules
-tar -xzf node_modules.tar.gz -C node_modules
+tar -xzf "$TAR_FILE" -C node_modules
 
 export PATH="/home/site/wwwroot/node_modules/.bin:$PATH"
 export NODE_PATH="/home/site/wwwroot/node_modules"
 
 if [ ! -f node_modules/@nestjs/core/package.json ]; then
-  echo "ERROR: @nestjs/core missing after extract (incomplete tar)"
+  echo "ERROR: @nestjs/core missing after extract"
   ls -la node_modules | head -50
   exit 1
 fi
