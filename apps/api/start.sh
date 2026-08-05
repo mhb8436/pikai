@@ -19,8 +19,9 @@ ln -sfn "$DEPS" node_modules
 export PATH="/home/site/wwwroot/$DEPS/.bin:$PATH"
 export NODE_PATH="/home/site/wwwroot/$DEPS"
 
+# .bin/prisma 는 wasm 경로가 깨짐 → prisma CLI를 node로 직접 실행
 echo "Running prisma migrate deploy ..."
-./$DEPS/.bin/prisma migrate deploy
+node "$DEPS/prisma/build/index.js" migrate deploy
 
 echo "Starting NestJS on PORT=${PORT:-8080} ..."
 export PORT="${PORT:-8080}"

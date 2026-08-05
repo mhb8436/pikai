@@ -65,6 +65,7 @@ jobs:
           test -f node_modules/@nestjs/common/package.json
           test -f node_modules/@nestjs/platform-express/package.json
           test -f node_modules/prisma/package.json
+          test -f node_modules/prisma/build/index.js
           test -f node_modules/tslib/package.json
 
           # Azure OneDeploy NodeProjectOptimizer 가 "node_modules" 폴더를 보면
