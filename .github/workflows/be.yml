@@ -17,9 +17,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # --------------------------------------------------
-  # 1) 빌드: 모노레포에서 api만 빌드 → Azure용 zip 만들기
-  # --------------------------------------------------
   build:
     runs-on: ubuntu-latest
 
@@ -58,11 +55,14 @@ jobs:
           cp apps/api/package.deploy.json deploy-out/package.json
 
           cd deploy-out
-          pnpm install --prod --ignore-workspace --node-linker=hoisted --no-frozen-lockfile
-          pnpm exec prisma generate
+          # Azure는 pnpm/Oryx 조합에서 node_modules를 tar.gz로 깨뜨리기 쉬움 → npm으로 설치
+          npm install --omit=dev
+          npx prisma generate
 
-          # Azure Oryx가 zip을 다시 빌드하지 않도록 (node_modules.tar.gz 깨짐 방지)
+          # Oryx가 재빌드하지 않도록
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
+          # pnpm lock이 있으면 Azure가 pnpm/Oryx 경로로 갈 수 있어 제거
+          rm -f pnpm-lock.yaml
 
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .

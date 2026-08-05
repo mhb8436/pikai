@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./node_modules/prisma/build/index.js migrate deploy && node dist/src/main.js"
+    "start": "prisma migrate deploy && node dist/src/main.js"
   },
   "dependencies": {
     "@azure/core-auth": "^1.11.0",
