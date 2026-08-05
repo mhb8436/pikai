@@ -96,7 +96,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "pikai"
+          app-name: "pikai3"
           package: release.zip
           # GitHub Secret에 Publish Profile 전체 내용을 넣어둔 값
           publish-profile: ${{ secrets.BE_PUBLISH_PROFILE }}
