@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "prisma migrate deploy && node dist/src/main.js"
+    "start": "sh ./start.sh"
   },
   "dependencies": {
     "@azure/core-auth": "^1.11.0",
