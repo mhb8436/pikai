@@ -61,6 +61,9 @@ jobs:
           pnpm install --prod --ignore-workspace --node-linker=hoisted --no-frozen-lockfile
           pnpm exec prisma generate
 
+          # Azure Oryx가 zip을 다시 빌드하지 않도록 (node_modules.tar.gz 깨짐 방지)
+          printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
+
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .
 
