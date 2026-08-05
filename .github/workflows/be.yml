@@ -60,18 +60,23 @@ jobs:
           npm install --omit=dev
           npx prisma generate
 
-          # 의존성 검증 (tar 사용 안 함 — Azure가 tar를 깨뜨리거나 덮어씀)
+          # 의존성 검증
           test -f node_modules/@nestjs/core/package.json
           test -f node_modules/@nestjs/common/package.json
           test -f node_modules/@nestjs/platform-express/package.json
           test -f node_modules/prisma/package.json
+          test -f node_modules/tslib/package.json
+
+          # Azure OneDeploy NodeProjectOptimizer 가 "node_modules" 폴더를 보면
+          # tar로 압축하다 rsync 실패함 → 이름을 바꿔서 우회
+          mv node_modules node_modules_app
 
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
           rm -f pnpm-lock.yaml node_modules.tar.gz app-node_modules.tar.gz
 
           echo "Artifact contents:"
           ls -la
-          ls node_modules/@nestjs
+          ls node_modules_app/@nestjs
 
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .
