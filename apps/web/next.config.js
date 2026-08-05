@@ -12,6 +12,8 @@ if (fullUrl && fullUrl !== "undefined" && fullUrl.startsWith("http")) {
 }
 
 const nextConfig = {
+  // Azure zip 배포: 최소 서버만 포함 (node_modules 지옥 회피)
+  output: "standalone",
   basePath: "/pikai",
   transpilePackages: ["@repo/common"],
   devIndicators: false,

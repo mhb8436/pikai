@@ -4,6 +4,7 @@
   "scripts": {
     "build": "turbo run build",
     "build:api": "turbo run build --filter=api",
+    "build:web": "turbo run build --filter=web",
     "prisma:generate": "pnpm --filter api exec prisma generate",
     "prisma:migrate:deploy": "pnpm --filter api exec prisma migrate deploy",
     "dev": "turbo run dev",
