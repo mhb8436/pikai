@@ -47,6 +47,13 @@ jobs:
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
+      # Azure DB에 마이그레이션 적용 (테이블 생성/변경)
+      # DB만 바꾸므로, 이미 떠 있는 App Service도 재배포 없이 바로 테이블을 씀
+      - name: Run database migrations
+        run: pnpm prisma:migrate:deploy
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
       # api와 api가 의존하는 패키지만 빌드 (web은 제외)
       - name: Build API
         run: pnpm build:api
