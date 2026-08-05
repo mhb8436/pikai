@@ -1,0 +1,29 @@
+{
+  "name": "api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node dist/main"
+  },
+  "dependencies": {
+    "@azure/core-auth": "^1.11.0",
+    "@azure/openai": "^2.0.0",
+    "@nestjs/common": "^11.0.1",
+    "@nestjs/core": "^11.0.1",
+    "@nestjs/jwt": "11",
+    "@nestjs/passport": "11",
+    "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/swagger": "^11.4.5",
+    "@prisma/client": "6",
+    "bcrypt": "6",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "dotenv": "^17.4.2",
+    "openai": "^6.48.0",
+    "passport": "0.7",
+    "passport-jwt": "4",
+    "react-daum-postcode": "^4.0.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.1"
+  }
+}
