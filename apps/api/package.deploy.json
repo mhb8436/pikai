@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node dist/main"
+    "start": "node dist/src/main.js"
   },
   "dependencies": {
     "@azure/core-auth": "^1.11.0",
