@@ -57,14 +57,24 @@ jobs:
           chmod +x deploy-out/start.sh
 
           cd deploy-out
-          # Azure는 pnpm/Oryx 조합에서 node_modules를 tar.gz로 깨뜨리기 쉬움 → npm으로 설치
           npm install --omit=dev
           npx prisma generate
 
-          # Oryx가 재빌드하지 않도록
+          # Nest 의존성이 실제로 설치됐는지 확인
+          test -f node_modules/@nestjs/core/package.json
+          test -f node_modules/prisma/package.json
+
+          # Oryx가 불완전한 tar를 만들지 않도록, CI에서 완전한 tar를 직접 만들고 node_modules 폴더는 제거
+          tar -czf node_modules.tar.gz -C node_modules .
+          rm -rf node_modules
+
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
-          # pnpm lock이 있으면 Azure가 pnpm/Oryx 경로로 갈 수 있어 제거
           rm -f pnpm-lock.yaml
+
+          echo "Artifact contents:"
+          ls -la
+          echo "Tar sample (nestjs):"
+          tar -tzf node_modules.tar.gz | grep -m5 '@nestjs/core' || true
 
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .
