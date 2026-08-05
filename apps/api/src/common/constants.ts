@@ -2,7 +2,7 @@
 // 운영에서는 dev-secret .... 을 .env에서 바꿔서 사용
 export const Constants = {
   secret: process.env.JWT_SECRET ?? '',
-  port: process.env.PORT ?? 0,
+  port: Number(process.env.PORT) || 8080,
   front: process.env.FRONT_URL ?? '',
-  round: Number(process.env.ROUND) ?? 0,
+  round: Number(process.env.ROUND) || 0,
 };
