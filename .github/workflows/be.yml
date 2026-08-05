@@ -60,25 +60,18 @@ jobs:
           npm install --omit=dev
           npx prisma generate
 
-          # Nest 의존성이 실제로 설치됐는지 확인
+          # 의존성 검증 (tar 사용 안 함 — Azure가 tar를 깨뜨리거나 덮어씀)
           test -f node_modules/@nestjs/core/package.json
+          test -f node_modules/@nestjs/common/package.json
+          test -f node_modules/@nestjs/platform-express/package.json
           test -f node_modules/prisma/package.json
 
-          # Oryx가 node_modules.tar.gz 이름을 가로채 불완전한 tar로 덮어씀
-          # → 다른 파일명으로 우리가 만든 완전한 tar만 사용
-          tar -czf app-node_modules.tar.gz -C node_modules .
-          rm -rf node_modules
-
-          # tar 안에 nest가 있는지 재확인 (없으면 배포 중단)
-          tar -tzf app-node_modules.tar.gz | grep -q '@nestjs/core/package.json'
-
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
-          rm -f pnpm-lock.yaml node_modules.tar.gz
+          rm -f pnpm-lock.yaml node_modules.tar.gz app-node_modules.tar.gz
 
           echo "Artifact contents:"
           ls -la
-          echo "Nest packages in tar:"
-          tar -tzf app-node_modules.tar.gz | grep '@nestjs/' | head -20
+          ls node_modules/@nestjs
 
       - name: Zip for Azure
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .
