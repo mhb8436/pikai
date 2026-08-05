@@ -36,33 +36,17 @@ jobs:
           node-version: "24.x"
           cache: "pnpm"
 
-      # 모노레포 전체 의존성 설치 (빌드에 필요)
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # Prisma Client 생성 (빌드/실행에 필요)
-      # Secret은 등록만으로는 안 쓰임 → 여기서 명시적으로 env에 연결해야 함
       - name: Generate Prisma Client
         run: pnpm prisma:generate
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
-      # Azure DB에 마이그레이션 적용 (테이블 생성/변경)
-      # DB만 바꾸므로, 이미 떠 있는 App Service도 재배포 없이 바로 테이블을 씀
-      - name: Run database migrations
-        run: pnpm prisma:migrate:deploy
-        env:
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-      # api와 api가 의존하는 패키지만 빌드 (web은 제외)
       - name: Build API
         run: pnpm build:api
 
-      # Azure에는 모노레포 전체가 아니라 "실행에 필요한 것만" 올립니다.
-      # 1. dist          → 빌드 결과
-      # 2. prisma        → 배포 환경에서 client 재생성용
-      # 3. package.deploy.json → workspace:* 없는 배포용 package.json
-      # 4. prod 의존성 설치 + prisma generate
       - name: Create deployment folder
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
@@ -75,7 +59,6 @@ jobs:
 
           cd deploy-out
           pnpm install --prod --ignore-workspace --node-linker=hoisted --no-frozen-lockfile
-          pnpm add prisma@6 --ignore-workspace --node-linker=hoisted
           pnpm exec prisma generate
 
       - name: Zip for Azure
@@ -87,9 +70,6 @@ jobs:
           name: api-app
           path: release.zip
 
-  # --------------------------------------------------
-  # 2) 배포: zip을 Azure App Service에 업로드
-  # --------------------------------------------------
   deploy:
     runs-on: ubuntu-latest
     needs: build

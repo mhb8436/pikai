@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node dist/src/main.js"
+    "start": "prisma migrate deploy && node dist/src/main.js"
   },
   "dependencies": {
     "@azure/core-auth": "^1.11.0",
@@ -22,6 +22,7 @@
     "openai": "^6.48.0",
     "passport": "0.7",
     "passport-jwt": "4",
+    "prisma": "6",
     "react-daum-postcode": "^4.0.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
