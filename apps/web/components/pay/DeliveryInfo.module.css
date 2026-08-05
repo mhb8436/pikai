@@ -1,0 +1,82 @@
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 60px auto 80px;
+  padding: 0 20px;
+}
+
+.form {
+  padding: 32px;
+  border-radius: 16px;
+  background: #fffdfd;
+  border: 1px solid #ffc7c2;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.subTitle {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.form p {
+  margin-bottom: 20px;
+}
+
+.form label {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.postBox {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.postInput,
+.input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  outline: none;
+  box-sizing: border-box;
+  background: white;
+}
+
+.postInput:focus,
+.input:focus {
+  border-color: #ffc7c2;
+}
+
+.postInput[readonly],
+.input[readonly] {
+  background: #edecec;
+  color: #555;
+}
+
+.searchButton {
+  width: 120px;
+  height: 48px;
+  border: none;
+  border-radius: 10px;
+  background: #ffc7c2;
+  color: #5a3a38;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.searchButton:hover {
+  background: #ffb4ae;
+}
+
+.input {
+  margin-bottom: 16px;
+}

@@ -1,0 +1,213 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.pageButton.active {
+    background-color: #ffc7c2;
+    color: white;
+    border-color: #ffc7c2;
+    font-weight: bold;
+}
+
+.pageButton {
+    padding: 8px 14px;
+    border: 1px solid #eaeaea;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.pageButton:hover {
+    background-color: #ffa39a;
+}
+
+.ellipsis {
+    padding: 0 4px;
+    color: #999;
+    font-weight: bold;
+}
+
+.cardContainer {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1.5rem;
+}
+
+.headerInfo {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.headerInfo h4 {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #111;
+}
+
+.dateText {
+    color: #555;
+    font-weight: normal;
+    margin-left: 4px;
+}
+
+.cardBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #FFFFFF;
+    border: 1px solid #EFEFEF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+}
+
+.detailButton {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+    background-color: #ffc7c2;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 16px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.detailButton:hover {
+    background-color: #ffa39a;
+}
+
+.imageWrapper {
+    position: relative;
+    flex-shrink: 0;
+}
+
+.imageBox {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #f1b2b2;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.imageBox:active {
+    transform: scale(0.96);
+}
+
+.imageBox img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.productImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.extraBadge {
+    position: absolute;
+    bottom: -6px;
+    right: -6px;
+    background-color: #222;
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.extraBadge:hover {
+    color: #ffc7c2;
+}
+
+.extraBadge:active {
+    transform: scale(0.96);
+}
+
+.tableWrapper {
+    flex: 1;
+    gap: 1rem;
+    padding-right: 2rem; /* 상세 버튼과 안 겹치게 상단 우측 여백 */
+    margin-left: 0.5rem;
+}
+
+.itemRow {
+    display: grid;
+    /* 상품명 | 수량 | 가격 | 상태 4열 구조 */
+    grid-template-columns: 2fr 1fr 1.5fr 1fr;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+.productName {
+    font-size: 1.05rem;
+    color: #111;
+    line-height: 1.3;
+}
+
+.price {
+    font-weight: bold;
+    color: #111;
+}
+
+.status {
+    font-weight: bold;
+    color: #ffa39a; /* 상태 표시 색상 */
+}
+
+.tableHeader,
+.itemRow {
+    display: grid;
+    /* 비율: [상품명 : 수량 : 가격 : 상태] */
+    grid-template-columns: 2.5fr 1fr 1.5fr 1.2fr;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.tableHeader {
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc; /* 헤더 구분선 */
+}
+
+.tableHeader span {
+    display: block;
+}
+
+.tableHeader span:first-child,
+.itemRow span:first-child {
+    text-align: left; /* 상품명만 좌측 정렬 */
+}
+
+.line {
+    border: 0;
+    height: 1px;
+    border-top: 1px solid #e5e7eb;
+    margin: 1.5rem 0;
+}

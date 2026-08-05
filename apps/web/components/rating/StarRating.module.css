@@ -1,0 +1,27 @@
+.questionTitle {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 2rem;
+    margin-bottom: 40px; /* 별점과의 간격 */
+}
+
+.actionArea {
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.okButton {
+    background-color: #ffc7c2;
+    color: #fff;
+    border: none;
+    padding: 12px 28px;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.okButton:hover {
+    background-color: #ffa39a;
+}

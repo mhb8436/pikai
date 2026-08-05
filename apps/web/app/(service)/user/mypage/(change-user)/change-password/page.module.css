@@ -1,0 +1,19 @@
+.container {
+  width: 700px;
+  margin: 0 auto;
+  padding: 10px 0 30px;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.description {
+  text-align: center;
+  color: #777;
+  font-size: 15px;
+  margin-bottom: 30px;
+}

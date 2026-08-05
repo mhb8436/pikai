@@ -1,0 +1,72 @@
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 60px auto 80px;
+  padding: 0 20px;
+}
+
+.paymentBox {
+  margin-top: 40px;
+  padding: 32px;
+  border: 1px solid #ffd8d4;
+  border-radius: 16px;
+  background: #fffdfd;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.radioLabel input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #ff9b94;
+  cursor: pointer;
+}
+
+.notice {
+  padding: 18px 20px;
+  border-radius: 10px;
+  background: #fff5f4;
+  border: 1px solid #ffe3e0;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.noticeTitle {
+  font-weight: 700;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.payButton {
+  display: block;
+  width: 100%;
+  margin-top: 40px;
+  height: 56px;
+  border: none;
+  border-radius: 12px;
+  background: #ffc7c2;
+  color: #5a3a38;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.payButton:hover {
+  background: #ffb4ae;
+}

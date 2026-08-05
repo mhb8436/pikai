@@ -1,0 +1,180 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  AWAITING // 결제 대기
+  PAYCOMPLETED // 결제 완료
+  TRANSIT // 배송중
+  DELCOMPLETED // 배송 완료
+  REFUND // 환불
+  RETURNS // 반품 
+  EXCHANGE // 교환
+  ConfirmPurchase // 구매 확정
+}
+
+enum PersonalColor {
+  WARM
+  COOL
+  SPRINGWARM
+  SUMMERCOOL
+  FALLWARM
+  WINTERCOOL
+  FALLDEEP
+  WINTERDEEP
+  SUMMERMUTE
+  FALLMUTE
+}
+
+model Product {
+  id                 Int             @id @default(autoincrement())
+  color_main_image   String
+  color_detail_image String
+  name               String
+  hash_tag           String[]
+  price              Int
+  is_sale            Boolean         @default(false)
+  category_id        Int
+  category           Category        @relation(fields: [category_id], references: [id], onDelete: Cascade)
+  brand_id           Int
+  brand              Brand           @relation(fields: [brand_id], references: [id], onDelete: Cascade)
+  detail_color       DetailProduct[]
+
+  @@unique([name, brand_id, category_id])
+}
+
+model DetailProduct {
+  id          Int         @id @default(autoincrement())
+  color_name  String
+  color_image String
+  stock       Int
+  h           Int
+  s           Int
+  l           Int
+  rating      Rating[]
+  cartItem    CartItem[]
+  orderItem   OrderItem[]
+  tone        Sale?
+  products    Product     @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id  Int
+
+  @@unique([color_name, product_id])
+}
+
+model Rating {
+  id              Int           @id @default(autoincrement())
+  star_rating     Int
+  is_hsl          Boolean       @default(false)
+  is_comp         Boolean       @default(false)
+  user_id         Int
+  user            User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  detail_color_id Int
+  detail_color    DetailProduct @relation(fields: [detail_color_id], references: [id], onDelete: Restrict)
+
+  @@unique([detail_color_id, user_id])
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  cartItems CartItem[]
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int        @unique
+}
+
+model CartItem {
+  id              Int           @id @default(autoincrement())
+  detail_color_id Int
+  detailColor     DetailProduct @relation(fields: [detail_color_id], references: [id], onDelete: Cascade)
+  cart_id         Int
+  cart            Cart          @relation(fields: [cart_id], references: [id], onDelete: Cascade)
+  quantity        Int           @default(1)
+  price           Int
+  is_selected     Boolean       @default(true)
+  is_now          Boolean       @default(false)
+
+  @@unique([cart_id, detail_color_id])
+}
+
+model Order {
+  id            String      @id
+  payment       String
+  recipient     String
+  delivery_info String
+  postal_code   String
+  delivery_inst String
+  phone_number  String
+  order_status  OrderStatus @default(AWAITING)
+  order_date    DateTime    @default(now())
+  user_id       Int
+  user          User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  orderItem     OrderItem[]
+}
+
+model OrderItem {
+  id              Int           @id @default(autoincrement())
+  order_id        String
+  order           Order         @relation(fields: [order_id], references: [id], onDelete: Cascade)
+  detail_color_id Int
+  detailColor     DetailProduct @relation(fields: [detail_color_id], references: [id])
+  quantity        Int
+  price           Int
+
+  @@unique([order_id, detail_color_id])
+}
+
+model Sale {
+  detail_color_id Int           @id
+  detailColor     DetailProduct @relation(fields: [detail_color_id], references: [id], onDelete: Cascade)
+  sale_count      Int
+  WARM            Int           @default(0)
+  COOL            Int           @default(0)
+  SPRINGWARM      Int           @default(0)
+  SUMMERCOOL      Int           @default(0)
+  FALLWARM        Int           @default(0)
+  WINTERCOOL      Int           @default(0)
+  FALLDEEP        Int           @default(0)
+  WINTERDEEP      Int           @default(0)
+  SUMMERMUTE      Int           @default(0)
+  FALLMUTE        Int           @default(0)
+}
+
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String
+  products Product[]
+}
+
+model User {
+  id             Int           @id @default(autoincrement())
+  name           String
+  email          String
+  password       String        @default("pwd")
+  postal_code    String
+  address        String
+  phone          String
+  personal_color PersonalColor
+  is_active      Boolean       @default(true)
+  is_admin       Boolean       @default(true)
+  create_at      DateTime      @default(now())
+  update_at      DateTime      @default(now())
+  cart           Cart?
+  ratings        Rating[]
+  orders         Order[]
+}

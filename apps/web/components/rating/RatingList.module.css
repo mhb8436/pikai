@@ -1,0 +1,96 @@
+.trash {
+    stroke: #ffc7c2;
+}
+
+.cardList {
+    list-style: none;
+    padding: 0;
+    margin: 0 1rem;
+    display: grid;
+    /* 너비를 동일하게 5등분(1fr씩 5개) 지정 */
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px; /* 카드 사이의 간격 */
+}
+
+/* 버튼들을 묶는 영역 (OK, 추가, 삭제 아이콘) */
+.actionGroup {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    margin-right: 1.3rem;
+}
+
+/* 기본 버튼 스타일 (하얀색 + 테두리) */
+.btn {
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    color: #555;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.btnSave {
+    background-color: #ffc7c2;
+    border-color: #ffc7c2;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btnSave:hover {
+    background-color: #ffa39a;
+    border-color: #ffa39a;
+}
+
+.btnCancel {
+    margin-left: 0.3rem;
+    background-color: #fff;
+    border-color: #e5e5e5;
+    color: #666;
+}
+
+.btnCancel:disabled {
+    background-color: #e5e7eb !important;
+    border-color: #d1d5db !important;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.pageButton.active {
+    background-color: #ffc7c2;
+    color: white;
+    border-color: #ffc7c2;
+    font-weight: bold;
+}
+
+.pageButton {
+    padding: 8px 14px;
+    border: 1px solid #eaeaea;
+    background-color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+}
+
+.pageButton:hover {
+    background-color: #ffa39a;
+}
+
+.ellipsis {
+    padding: 0 4px;
+    color: #999;
+    font-weight: bold;
+}

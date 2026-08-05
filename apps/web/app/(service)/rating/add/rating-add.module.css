@@ -1,0 +1,49 @@
+.searchGroupContainer {
+    display: flex;
+    gap: 32px; /* 두 검색창 사이의 간격 */
+    width: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.label {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0 0 12px 0;
+    white-space: nowrap;
+}
+
+.searchItem {
+    flex: 1;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 20;
+}
+
+.pageWrapper {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.helpText {
+    font-size: 14px;
+    color: #666666;
+    padding-left: 4px;
+    margin-right: 1.3rem;
+}
+
+.helpTextContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    background-color: #f8f7f7;
+}
+
+.ratingWrapper {
+    position: relative;
+    z-index: 0;
+}

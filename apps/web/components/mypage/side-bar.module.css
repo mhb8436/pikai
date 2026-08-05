@@ -1,0 +1,35 @@
+.sidebar {
+  padding: 10px 0;
+}
+
+.folder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  cursor: pointer;
+
+  font-size: 22px;
+  font-weight: 700;
+
+  color: #333;
+}
+
+.menu {
+  margin-top: 18px;
+  margin-left: 18px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.link {
+  text-decoration: none;
+  color: #666;
+  font-size: 17px;
+}
+
+.link:hover {
+  color: #ff9a92;
+}

@@ -1,0 +1,115 @@
+.personalColorContainer {
+    padding: 1rem 1.5rem;
+    width: 100%;
+}
+
+/* 상단 요소들을 가로로 나란히 정렬 */
+.personalColorHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin: 0 1rem 1rem 1.5rem
+}
+
+.personalColorHeader .title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+}
+
+.personalColorHeader .selectedTone {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    flex-grow: 1;
+    text-align: center;
+}
+
+/* 본인이 고른 톤 강조 글자에 포인트 컬러 얇게 배경으로 얹기 */
+.toneValue {
+    font-weight: bold;
+    background: linear-gradient(to top, #ffc7c2 40%, transparent 40%);
+    padding: 0 0.25rem
+}
+
+/* 상단 버튼들 묶음 */
+.actionButtons {
+    display: flex;
+}
+
+/* 기본 버튼 스타일 (하얀색 + 테두리) */
+.btn {
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    color: #555;
+    padding: 0.375rem 0.875rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #f9f9f9;
+    border-color: #d1d1d1;
+}
+
+/* [저장] 및 [수정] 버튼에 포인트 컬러 채우기 */
+.btnSave, .btnEdit {
+    background-color: #ffc7c2;
+    border-color: #ffc7c2;
+    color: #fff;
+    font-weight: bold;
+}
+
+.btnSave:hover, .btnEdit:hover {
+    background-color: #ffa39a;
+    border-color: #ffa39a;
+}
+
+/* [취소] 버튼 */
+.btnCancel {
+    margin-left: 0.3rem;
+    background-color: #fff;
+    border-color: #e5e5e5;
+    color: #666;
+}
+
+/* 하단 컬러 리스트를 바둑판(Grid) 형태로 정렬 */
+.colorOptionsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-top: 0.9375rem;
+}
+
+/* 퍼스널 컬러 아이템 버튼 (하얀 기본 베이스) */
+.colorItemBtn {
+    border: 1px solid #e5e5e5;
+    background-color: #fff;
+    color: #444;
+    padding: 0.75rem 0.2rem;
+    font-size: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    transition: all 0.2s ease;
+}
+
+.colorItemBtn:hover {
+    background-color: #fff5f4;
+    border-color: #ffc7c2;
+}
+
+/* 사용자가 마우스로 클릭해서 '임시 선택'한 버튼 스타일 */
+.activeTone {
+    background-color: #ffc7c2 !important;
+    border-color: #ffc7c2 !important;
+    color: #fff !important;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(255, 199, 194, 0.4);
+}

@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.container a {
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.container a:hover {
+  color: #ffc7c2;
+}
+
+.container button {
+  border: none;
+  background-color: #ffc7c2;
+  color: white;
+  padding: 9px 18px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.container button:hover {
+  background-color: hsl(5, 100%, 82%);
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: 12px;
+  }
+
+  .container a,
+  .container button {
+    font-size: 13px;
+  }
+}

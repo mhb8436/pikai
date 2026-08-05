@@ -1,0 +1,50 @@
+.container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 35px;
+}
+
+.currentBox {
+  background: #f6f6f6;
+  border: 1px solid #ececec;
+  border-radius: 18px;
+  padding: 28px 30px;
+  margin-bottom: 25px;
+}
+
+.subTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.label {
+  width: 90px;
+  font-weight: 600;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.row span:last-child {
+  flex: 1;
+  line-height: 1.6;
+  word-break: break-all;
+}

@@ -1,0 +1,71 @@
+name: Build and deploy api (Nest.js) to Azure Web App -pikai-api
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "apps/api/**"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/be.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24.x"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        # run: pnpm --filter api prisma generate
+        run: pnpm prisma:generate
+
+      - name: Build
+        run: pnpm turbo run build --filter=api
+
+      # 워크스페이스와 분리해 독립 설치. hoisted 라야 심볼릭 링크 없이 담긴다.
+      - name: Create deployment folder
+        run: |
+          mkdir -p deploy-out
+          cp -r apps/api/dist deploy-out/dist
+          cp apps/api/package.json deploy-out/package.json
+          cd deploy-out
+          pnpm install --prod --ignore-workspace --node-linker=hoisted --no-frozen-lockfile
+
+      - name: Zip artifact for deployment
+        run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release.zip" .
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-app
+          path: release.zip
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: api-app
+
+      - name: "Deploy to Azure Web App"
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: "pikai-api"
+          slot-name: "staging"
+          package: release.zip
+          publish-profile: ${{ secrets.BE_PUBLISH_PROFILE }}

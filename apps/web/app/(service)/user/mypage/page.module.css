@@ -1,0 +1,99 @@
+.container {
+  max-width: 900px;
+  margin: 60px auto 80px;
+}
+
+.title {
+  text-align: center;
+  font-size: 35px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.myPageBox {
+  width: 800px;
+  margin: 0 auto;
+
+  background: #f6f6f6;
+  border-radius: 22px;
+  border: 1px solid #ececec;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.profile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 30px 60px;
+  margin-top: 10px;
+}
+
+.userName {
+  margin: 0;
+  font-size: 25px;
+  font-weight: 700;
+  color: #333;
+}
+
+.cancel {
+  font-size: 14px;
+  color: #999;
+  text-decoration: none;
+  transition: 0.2s;
+}
+
+.cancel:hover {
+  color: #ff6b6b;
+  text-decoration: underline;
+}
+
+.divider {
+  width: calc(100% - 60px);
+  height: 1px;
+  margin: 0 auto;
+  background: #dddddd;
+}
+
+.menuBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 70px;
+
+  padding: 60px 40px;
+}
+
+.menu {
+  width: 180px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-decoration: none;
+  color: #333;
+
+  transition: transform 0.2s;
+}
+
+.menu:hover {
+  transform: translateY(-4px);
+}
+
+.menu svg {
+  color: #ffc7c2;
+  margin-bottom: 18px;
+}
+
+.menu:hover svg {
+  color: #ffaea8;
+}
+
+.menu span {
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+}

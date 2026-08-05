@@ -1,0 +1,137 @@
+.titleMain {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111;
+    margin-top: 1.875rem;
+    margin-bottom: 1.5rem;
+    margin-left: 2rem;
+    width: 100%;
+}
+
+.cardContainer {
+    width: 100%;
+    max-width: 950px;
+    margin: 0 auto 2.5rem;
+    padding: 0 1.5rem;
+}
+
+
+.headerInfo {
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.headerInfo h4 {
+    margin: 0.2rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #111;
+}
+
+.cardBox {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    background-color: #FFFFFF;
+    border: 1px solid #EFEFEF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    padding: 2rem 2.5rem;
+    border-radius: 12px;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.tableWrapper {
+    flex: 1;
+    gap: 1rem;
+    padding-right: 2rem; /* 상세 버튼과 안 겹치게 상단 우측 여백 */
+    margin-left: 0.5rem;
+}
+
+.tableHeader,
+.itemRow {
+    display: grid;
+    /* 비율: [상품명 : 수량 : 가격 : 상태] */
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.tableHeader {
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc; /* 헤더 구분선 */
+}
+
+.tableHeader span {
+    display: block;
+}
+
+
+.line {
+    border: 0;
+    height: 1px;
+    border-top: 1px solid #e5e7eb;
+    margin: 1.5rem 0;
+}
+
+.itemRow {
+    display: grid;
+    /* 상품명 | 수량 | 가격 | 상태 4열 구조 */
+    grid-template-columns: 1fr 1fr 2fr 1fr;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+.paymentHeader {
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ccc; /* 헤더 구분선 */
+}
+
+.paymentRow {
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    align-items: center;
+    font-size: 1rem;
+    color: #333;
+    text-align: center;
+}
+
+.paymentHeader,
+.paymentRow {
+    display: grid;
+    /* 비율: [상품명 : 수량 : 가격 : 상태] */
+    grid-template-columns: 5fr 5fr;
+    align-items: center;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.backButton {
+    display: block;
+    padding: 8px 16px;
+    border-radius: 6px;
+    background-color: #ffc7c2;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.backButton:hover {
+    background-color: #ffa39a;
+}
+
+.backButton:active {
+    transform: scale(0.96);
+}
