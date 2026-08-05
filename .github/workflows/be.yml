@@ -68,6 +68,9 @@ jobs:
           test -f node_modules/prisma/build/index.js
           test -f node_modules/tslib/package.json
 
+          # .bin/prisma 가 wasm 을 .bin/ 에서 찾음 → 미리 복사
+          cp -f node_modules/prisma/build/*.wasm node_modules/.bin/
+
           # Azure OneDeploy NodeProjectOptimizer 가 "node_modules" 폴더를 보면
           # tar로 압축하다 rsync 실패함 → 이름을 바꿔서 우회
           mv node_modules node_modules_app
