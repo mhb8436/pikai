@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Constants } from "@/common/constants";
 import { OrderListType } from "@/types/OrderType";
 import styles from "./order.module.css";

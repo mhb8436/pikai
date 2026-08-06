@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { Constants } from "@/common/constants";
 import type { Metadata } from "next";
 import styles from "./page.module.css";

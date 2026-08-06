@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import styles from "./FAQ.module.css";
 
 export default async function Page() {

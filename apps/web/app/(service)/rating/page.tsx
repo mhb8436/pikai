@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import type { Metadata } from "next";
 import PersonalColor from "../../../components/rating/PersonalColor";
 import { Constants } from "@/common/constants";

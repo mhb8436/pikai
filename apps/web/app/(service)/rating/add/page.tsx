@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { redirect } from "next/navigation";
 import SearchBarRating from "@/components/rating/SearchBar_rating";
 import styles from "./rating-add.module.css";

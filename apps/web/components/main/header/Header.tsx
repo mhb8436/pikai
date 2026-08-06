@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+import { Suspense } from "react";
 import Image from "next/image";
 import CategoryNav from "./category-nav";
 import UserMenu from "./UserMenu";
@@ -11,17 +13,12 @@ export default async function Header() {
   let categories: CategoryType[] = [];
 
   try {
-    if (!Constants.back_url) {
-      throw new Error("NEXT_PUBLIC_BACK_URL is not set");
-    }
-
-    const res = await fetch(`${Constants.back_url}/category`, {
-      next: { revalidate: 60 },
-    });
+    const res = await fetch(`${Constants.back_url}/category`);
     if (!res.ok) throw new Error(res.statusText);
 
     const categoryList: CategoryType[] = await res.json();
     if (!categoryList) {
+      alert("카테고리를 가져오는데 실패하였습니다. 다시 시도해주세요");
       throw new Error("카테고리를 가져오는데 실패");
     }
     categories = categoryList;
@@ -44,10 +41,14 @@ export default async function Header() {
             loading="eager"
           />
         </a>
-        <SearchBar />
+        <Suspense fallback={null}>
+          <SearchBar />
+        </Suspense>
       </div>
       <div className={styles.category}>
-        <CategoryNav categories={categories} />
+        <Suspense fallback={null}>
+          <CategoryNav categories={categories} />
+        </Suspense>
       </div>
     </div>
   );

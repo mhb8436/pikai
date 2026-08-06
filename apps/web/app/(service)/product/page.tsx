@@ -1,5 +1,4 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { ProductItemType } from "@/types/productItemType";
 import { ProductSortType } from "@/types/productSortTyps";

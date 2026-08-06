@@ -11,9 +11,6 @@ export const metadata: Metadata = {
   description: "Your Perfect Color",
 };
 
-// 빌드 시 API 호출로 정적 생성이 멈추지 않도록 요청 시마다 렌더
-export const dynamic = "force-dynamic";
-
 export default function RootLayout({
   children,
 }: Readonly<{

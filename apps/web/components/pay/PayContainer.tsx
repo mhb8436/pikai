@@ -1,13 +1,14 @@
 "use client";
-
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DeliveryInfo from "@/components/pay/DeliveryInfo";
 import PayItem from "@/components/pay/PayItem";
 import { DeliveryData } from "@/types/payType";
 import { Constants } from "@/common/constants";
 import styles from "./PayContainer.module.css";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Cart } from "@/types/cartType";
+import { PaymentWidgetInstance } from "@tosspayments/payment-widget-sdk";
+import Payment from "./payment";
 
 interface Props {
   data: Cart;
@@ -16,8 +17,23 @@ interface Props {
 export default function PayContainer({ data }: Props) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const pathname = usePathname();
+
   const isCartOrder = searchParams.get("isCartOrder") ?? true;
   const selectedOnly = searchParams.get("selectedOnly") ?? false;
+
+  const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
+
+  useEffect(() => {
+    const errorCode = searchParams.get("code");
+    const errorMessage = searchParams.get("message");
+
+    if (errorCode) {
+      alert(`결제에 실패했습니다: ${errorMessage || "알 수 없는 오류"}`);
+      router.replace(pathname);
+    }
+  }, [searchParams, router, pathname]);
+
   const [delivery, setDelivery] = useState<DeliveryData>({
     recipient: data.user.name,
     phone_number: data.user.phone,
@@ -26,7 +42,13 @@ export default function PayContainer({ data }: Props) {
     delivery_inst: "",
   });
 
-  const [payment, setPayment] = useState("계좌이체");
+  const totalPrice = data.cartItems.reduce(
+    (acc, item) =>
+      acc + item.quantity * (item.detailColor.products.price * 0.9),
+    0,
+  );
+
+  const [payment, setPayment] = useState("카드");
 
   const handlePay = async () => {
     if (!delivery.recipient.trim()) {
@@ -64,6 +86,12 @@ export default function PayContainer({ data }: Props) {
       return;
     }
 
+    const paymentWidget = paymentWidgetRef.current;
+    if (!paymentWidget) {
+      alert("결제 위젯 로딩 중입니다. 잠시만 기다려주세요.");
+      return;
+    }
+
     const cartItem = data.cartItems.map((item) => ({
       detail_color_id: item.detailColor.id,
       quantity: item.quantity,
@@ -93,7 +121,19 @@ export default function PayContainer({ data }: Props) {
 
         const order = await response.json();
 
-        router.replace(`/pay/complete?orderId=${order.id}`);
+        const firstProductName =
+          data.cartItems[0]?.detailColor.products.name || "상품";
+        const orderName =
+          data.cartItems.length > 1
+            ? `${firstProductName} 외 ${data.cartItems.length - 1}건`
+            : firstProductName;
+
+        await paymentWidget.requestPayment({
+          orderId: `${order.id}`,
+          orderName: orderName,
+          successUrl: `${window.location.origin}/pikai/pay/complete`,
+          failUrl: `${window.location.origin}${pathname}`,
+        });
       } catch (err) {
         console.error(err);
       }
@@ -114,23 +154,11 @@ export default function PayContainer({ data }: Props) {
 
       <div className={styles.paymentBox}>
         <h3 className={styles.title}>결제 수단</h3>
-
-        <label className={styles.radioLabel}>
-          <input
-            type="radio"
-            name="payment"
-            value="계좌이체"
-            checked={payment === "계좌이체"}
-            onChange={(e) => setPayment(e.target.value)}
-          />
-          계좌이체 (국민은행 123456-78-901234 피카이)
-        </label>
-
-        <div className={styles.notice}>
-          <div className={styles.noticeTitle}>[계좌이체 유의사항]</div>
-          <p>• 계좌이체로 결제 완료 시 본인 계좌에서 즉시 이체 처리됩니다.</p>
-          <p>• 은행별 시스템 점검 시간에는 이체가 제한될 수 있습니다.</p>
-        </div>
+        <Payment
+          userId={data.id}
+          price={totalPrice}
+          onWidgetLoad={(widget) => (paymentWidgetRef.current = widget)}
+        />
 
         <button className={styles.payButton} onClick={handlePay}>
           결제하기

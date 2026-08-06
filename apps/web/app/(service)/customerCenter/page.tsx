@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import styles from "./customer-center.module.css";
 import customerCenter from "@/public/pikai_customer-_center.png";
 import Image from "next/image";

@@ -34,15 +34,6 @@ export default async function Page() {
     }
   }
 
-  if (!user) {
-    return (
-      <div className={styles.container}>
-        <h2 className={styles.title}>비밀번호 변경</h2>
-        <p className={styles.description}>로그인이 필요합니다.</p>
-      </div>
-    );
-  }
-
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>비밀번호 변경</h2>
