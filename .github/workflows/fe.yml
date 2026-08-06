@@ -10,7 +10,7 @@ on:
     paths:
       - "apps/web/**"
       - "packages/common/**"
-      - "pnpm-lock.yaml"
+      # - "pnpm-lock.yaml"
       - ".github/workflows/fe.yml"
   workflow_dispatch:
 
@@ -71,6 +71,6 @@ jobs:
       - uses: azure/webapps-deploy@v3
         with:
           # 본인 App Service 이름으로 바꾸세요
-          app-name: "pikai3-web"
+          app-name: "pikai-web"
           package: release-web.zip
           publish-profile: ${{ secrets.FE_PUBLISH_PROFILE }}

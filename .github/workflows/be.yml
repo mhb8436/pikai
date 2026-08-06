@@ -11,7 +11,7 @@ on:
     paths:
       - "apps/api/**"
       - "packages/common/**"
-      - "pnpm-lock.yaml"
+      # - "pnpm-lock.yaml"
       - ".github/workflows/be.yml"
   # GitHub Actions 탭에서 수동 실행도 가능
   workflow_dispatch:
@@ -115,7 +115,7 @@ jobs:
       - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v3
         with:
-          app-name: "pikai3"
+          app-name: "pikai4-api"
           package: release.zip
           # GitHub Secret에 Publish Profile 전체 내용을 넣어둔 값
           publish-profile: ${{ secrets.BE_PUBLISH_PROFILE }}
