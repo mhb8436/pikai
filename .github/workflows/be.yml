@@ -68,8 +68,22 @@ jobs:
           test -f node_modules/prisma/build/index.js
           test -f node_modules/tslib/package.json
 
-          # Azure OneDeploy NodeProjectOptimizer 가 "node_modules" 폴더를 보면
-          # tar로 압축하다 rsync 실패함 → 이름을 바꿔서 우회
+          # @repo/common (workspace) — Azure zip에는 workspace가 없으므로 JS로 번들해 포함
+          mkdir -p node_modules/@repo/common
+          npx --yes esbuild "$GITHUB_WORKSPACE/packages/common/src/index.ts" \
+            --bundle --platform=node --format=cjs \
+            --outfile=node_modules/@repo/common/index.js
+          printf '%s\n' '{' \
+            '  "name": "@repo/common",' \
+            '  "version": "0.0.0",' \
+            '  "main": "index.js"' \
+            '}' > node_modules/@repo/common/package.json
+          test -f node_modules/@repo/common/index.js
+
+          # .bin/prisma 가 wasm 을 .bin/ 에서 찾음 → 미리 복사
+          cp -f node_modules/prisma/build/*.wasm node_modules/.bin/ 2>/dev/null || true
+
+          # Azure OneDeploy가 node_modules 를 tar로 망가뜨리지 않게 이름 변경
           mv node_modules node_modules_app
 
           printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment

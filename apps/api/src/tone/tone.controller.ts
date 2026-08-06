@@ -3,7 +3,7 @@ import { ToneService } from './tone.service';
 import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth/jwt-auth.guard';
 import { CurrentUser } from 'src/common/current-user.decorator';
-import { type jwtPayloadType } from '@repo/common';
+import type { jwtPayloadType } from '@repo/common';
 
 @Controller('tone')
 export class ToneController {
