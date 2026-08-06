@@ -48,9 +48,19 @@ jobs:
           cp -r apps/web/public deploy-out/apps/web/public
           cp apps/web/start.sh deploy-out/start.sh
           chmod +x deploy-out/start.sh
-          printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > deploy-out/.deployment
-          test -f deploy-out/apps/web/server.js
-          ls -la deploy-out/apps/web
+
+          # Azure OneDeploy가 node_modules 를 tar로 망가뜨리지 않게 이름 변경 (be.yml 과 동일)
+          mv deploy-out/node_modules deploy-out/node_modules_app
+
+          cd deploy-out
+          printf '%s\n' '[config]' 'SCM_DO_BUILD_DURING_DEPLOYMENT = false' > .deployment
+          rm -f node_modules.tar.gz app-node_modules.tar.gz pnpm-lock.yaml
+
+          test -f apps/web/server.js
+          test -d node_modules_app/.pnpm/node_modules/@swc/helpers
+          echo "Artifact contents:"
+          ls -la
+          ls node_modules_app/.pnpm/node_modules/@swc/helpers
 
       - name: Zip
         run: cd deploy-out && zip -qr "$GITHUB_WORKSPACE/release-web.zip" .
