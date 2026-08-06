@@ -11,12 +11,17 @@ export default async function Header() {
   let categories: CategoryType[] = [];
 
   try {
-    const res = await fetch(`${Constants.back_url}/category`);
+    if (!Constants.back_url) {
+      throw new Error("NEXT_PUBLIC_BACK_URL is not set");
+    }
+
+    const res = await fetch(`${Constants.back_url}/category`, {
+      next: { revalidate: 60 },
+    });
     if (!res.ok) throw new Error(res.statusText);
 
     const categoryList: CategoryType[] = await res.json();
     if (!categoryList) {
-      alert("카테고리를 가져오는데 실패하였습니다. 다시 시도해주세요");
       throw new Error("카테고리를 가져오는데 실패");
     }
     categories = categoryList;
