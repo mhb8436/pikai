@@ -30,8 +30,8 @@ if [ ! -f "$PRISMA_CLI" ]; then
   exit 1
 fi
 
-echo "Running prisma migrate deploy via node $PRISMA_CLI ..."
-node "$PRISMA_CLI" migrate deploy
+# echo "Running prisma migrate deploy via node $PRISMA_CLI ..."
+# node "$PRISMA_CLI" migrate deploy
 
 echo "Starting NestJS on PORT=${PORT:-8080} ..."
 export PORT="${PORT:-8080}"
